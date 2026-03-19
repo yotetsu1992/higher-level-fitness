@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const NAV_LINKS = [
   { href: "#about", label: "Über Sebastian" },
@@ -13,8 +14,14 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [logoLoaded, setLogoLoaded] = useState(false);
 
   useEffect(() => {
+    // Check if logo exists
+    fetch("/logo.png", { method: "HEAD" })
+      .then((r) => setLogoLoaded(r.ok))
+      .catch(() => setLogoLoaded(false));
+
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -25,7 +32,10 @@ export default function Navbar() {
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+        transition={{
+          duration: 0.8,
+          ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+        }}
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
           scrolled
             ? "bg-[#080808]/95 backdrop-blur-lg border-b border-[#1A1A1A]"
@@ -34,13 +44,38 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="group flex flex-col leading-none gap-0.5">
-            <span className="font-heading text-[1.35rem] tracking-[0.15em] text-gold group-hover:text-gold-light transition-colors duration-300">
-              HIGHER LEVEL
-            </span>
-            <span className="font-heading text-[0.5rem] tracking-[0.55em] text-[#444] group-hover:text-[#666] transition-colors duration-300">
-              FITNESS · BADEN-BADEN
-            </span>
+          <a href="#" className="group flex items-center">
+            {logoLoaded ? (
+              <div className="relative h-10 w-auto">
+                <Image
+                  src="/logo.png"
+                  alt="Higher Level Fitness"
+                  height={40}
+                  width={120}
+                  className="h-10 w-auto object-contain"
+                  priority
+                />
+                {/* Shimmer overlay on image */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background:
+                      "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%)",
+                    backgroundSize: "200% 100%",
+                    animation: "logoShimmer 2.5s ease infinite",
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="flex flex-col leading-none gap-0.5">
+                <span className="logo-shimmer font-heading text-[1.35rem] tracking-[0.15em]">
+                  HIGHER LEVEL
+                </span>
+                <span className="font-heading text-[0.5rem] tracking-[0.55em] text-[#444] group-hover:text-[#666] transition-colors duration-300">
+                  FITNESS · BADEN-BADEN
+                </span>
+              </div>
+            )}
           </a>
 
           {/* Desktop Links */}
@@ -49,9 +84,11 @@ export default function Navbar() {
               <a
                 key={l.href}
                 href={l.href}
-                className="text-[11px] tracking-[0.22em] text-[#666] hover:text-white transition-colors duration-200 uppercase"
+                className="group relative text-[11px] tracking-[0.22em] text-[#555] hover:text-white transition-colors duration-300 uppercase"
               >
                 {l.label}
+                {/* Underline animation */}
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-300 ease-out" />
               </a>
             ))}
           </nav>
@@ -60,9 +97,19 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <a
               href="#bewerbung"
-              className="hidden md:inline-flex items-center bg-gold hover:bg-gold-light transition-colors duration-300 text-[#080808] text-[11px] font-semibold tracking-[0.22em] px-6 py-3 uppercase"
+              className="group relative hidden md:inline-flex items-center overflow-hidden text-[#080808] text-[11px] font-semibold tracking-[0.22em] px-6 py-3 uppercase"
+              style={{ background: "linear-gradient(135deg, #EDD27A 0%, #C8922A 40%, #A07020 70%, #C8922A 100%)" }}
             >
-              Erstgespräch
+              {/* Shimmer sweep on hover */}
+              <span
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%)",
+                  backgroundSize: "200% 100%",
+                  animation: "logoShimmer 1.5s ease infinite",
+                }}
+              />
+              <span className="relative">Erstgespräch</span>
             </a>
 
             <button
@@ -113,7 +160,8 @@ export default function Navbar() {
             <a
               href="#bewerbung"
               onClick={() => setOpen(false)}
-              className="mt-4 bg-gold hover:bg-gold-light text-[#080808] text-sm font-semibold tracking-[0.22em] uppercase px-6 py-4 text-center transition-colors duration-300"
+              className="mt-4 text-[#080808] text-sm font-semibold tracking-[0.22em] uppercase px-6 py-4 text-center"
+              style={{ background: "linear-gradient(135deg, #EDD27A 0%, #C8922A 50%, #A07020 100%)" }}
             >
               Erstgespräch anfragen
             </a>

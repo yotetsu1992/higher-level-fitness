@@ -1,4 +1,6 @@
 import ScrollProgress from "@/components/ScrollProgress";
+import CustomCursor from "@/components/CustomCursor";
+import Grain from "@/components/Grain";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -12,6 +14,8 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      <CustomCursor />
+      <Grain />
       <ScrollProgress />
       <Navbar />
       <main>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, animate } from "framer-motion";
+import { motion, useInView, animate, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -79,31 +79,58 @@ const container = {
 };
 
 export default function Hero() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+
+  // Parallax transforms
+  const gridY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const glowY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const watermarkY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+
   return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#080808]">
-      {/* Grid */}
-      <div
+    <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#080808]">
+      {/* Grid — slowest parallax */}
+      <motion.div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(#C8A96E 1px, transparent 1px), linear-gradient(90deg, #C8A96E 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(#C8922A 1px, transparent 1px), linear-gradient(90deg, #C8922A 1px, transparent 1px)`,
           backgroundSize: "80px 80px",
+          y: gridY,
         }}
       />
 
-      {/* Glow */}
+      {/* Glow — medium parallax */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 2 }}
-        className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-gold/[0.055] rounded-full blur-[110px] pointer-events-none"
+        className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full blur-[120px] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(200,146,42,0.08) 0%, transparent 70%)",
+          y: glowY,
+        }}
       />
 
-      {/* HL watermark — subtle parallax */}
+      {/* Second glow — right side */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 2 }}
+        className="absolute -bottom-20 -right-20 w-[500px] h-[500px] rounded-full blur-[100px] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(200,146,42,0.04) 0%, transparent 70%)",
+          y: glowY,
+        }}
+      />
+
+      {/* HL watermark — fastest parallax */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1.5 }}
         className="absolute right-[-2vw] top-1/2 -translate-y-1/2 font-heading text-[28vw] leading-none text-white/[0.018] select-none pointer-events-none tracking-tight"
+        style={{ y: watermarkY }}
       >
         HL
       </motion.div>
@@ -116,7 +143,7 @@ export default function Hero() {
         className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 w-px h-40 bg-gradient-to-b from-transparent via-gold/40 to-transparent hidden md:block origin-center"
       />
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12 w-full pt-28 pb-20">
+      <motion.div style={{ y: contentY }} className="relative max-w-7xl mx-auto px-6 md:px-12 w-full pt-28 pb-20">
         <div className="flex flex-col gap-5 max-w-5xl">
           {/* Label */}
           <motion.div
@@ -178,9 +205,18 @@ export default function Hero() {
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4">
               <a
                 href="#bewerbung"
-                className="group relative inline-flex items-center justify-center overflow-hidden bg-gold text-[#080808] font-semibold tracking-[0.18em] text-[12px] uppercase px-8 py-4 transition-all duration-300"
+                className="group relative inline-flex items-center justify-center overflow-hidden text-[#080808] font-semibold tracking-[0.18em] text-[12px] uppercase px-8 py-4"
+                style={{ background: "linear-gradient(135deg, #EDD27A 0%, #C8922A 40%, #A07020 70%, #C8922A 100%)" }}
               >
-                <span className="absolute inset-0 bg-gold-light translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                {/* Shimmer on hover */}
+                <span
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%)",
+                    backgroundSize: "200% 100%",
+                    animation: "logoShimmer 1.8s ease infinite",
+                  }}
+                />
                 <span className="relative">Erstgespräch anfragen</span>
               </a>
               <a
@@ -231,7 +267,7 @@ export default function Hero() {
           </motion.span>
           <div className="w-px h-14 bg-gradient-to-b from-gold/60 to-transparent" />
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }
