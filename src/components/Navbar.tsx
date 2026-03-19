@@ -42,9 +42,9 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="Higher Level Fitness"
-              height={44}
-              width={132}
-              className="h-11 w-auto object-contain"
+              height={56}
+              width={168}
+              className="h-14 w-auto object-contain"
               priority
             />
             {/* Shimmer overlay on hover */}
