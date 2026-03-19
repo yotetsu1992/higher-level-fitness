@@ -1,6 +1,5 @@
 import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/CustomCursor";
-import Grain from "@/components/Grain";
 import AuroraShader from "@/components/AuroraShader";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -17,7 +16,6 @@ export default function Home() {
     <>
       <CustomCursor />
       <AuroraShader />
-      <Grain />
       <ScrollProgress />
       <Navbar />
       <main>
