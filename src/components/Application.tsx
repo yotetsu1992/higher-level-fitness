@@ -46,7 +46,7 @@ export default function Application() {
               <br />
               FÜR DEIN
               <br />
-              <span className="text-gold">HIGHER LEVEL?</span>
+              <span className="gold-gradient-text">HIGHER LEVEL?</span>
             </motion.h2>
 
             <motion.p

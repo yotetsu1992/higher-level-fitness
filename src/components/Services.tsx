@@ -59,7 +59,7 @@ export default function Services() {
             >
               WAS ICH
               <br />
-              <span className="text-gold">FÜR DICH</span>
+              <span className="gold-gradient-text">FÜR DICH</span>
               <br />
               TUE.
             </motion.h2>

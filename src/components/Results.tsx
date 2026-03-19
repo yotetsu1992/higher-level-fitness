@@ -50,7 +50,7 @@ export default function Results() {
         >
           ECHTE
           <br />
-          <span className="text-gold">ERGEBNISSE.</span>
+          <span className="gold-gradient-text">ERGEBNISSE.</span>
           <br />
           ECHTE LEUTE.
         </motion.h2>

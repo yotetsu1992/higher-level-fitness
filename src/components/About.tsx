@@ -53,7 +53,7 @@ export default function About() {
             >
               KEIN
               <br />
-              <span className="text-gold">DURCHSCHNITT.</span>
+              <span className="gold-gradient-text">DURCHSCHNITT.</span>
               <br />
               NIEMALS.
             </motion.h2>

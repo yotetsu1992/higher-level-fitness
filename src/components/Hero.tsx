@@ -5,16 +5,25 @@ import { useRef, useEffect } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
+const metallicGold = {
+  backgroundImage: "linear-gradient(180deg, #F5E4A0 0%, #D4A843 30%, #A07020 60%, #EDD27A 85%, #C8922A 100%)",
+  backgroundClip: "text" as const,
+  WebkitBackgroundClip: "text" as const,
+  color: "transparent" as const,
+};
+
 function CharReveal({
   text,
   className,
   startDelay = 0,
   color,
+  metallic,
 }: {
   text: string;
   className: string;
   startDelay?: number;
   color?: string;
+  metallic?: boolean;
 }) {
   return (
     <div className="overflow-hidden leading-[0.88]">
@@ -30,7 +39,7 @@ function CharReveal({
               ease,
             }}
             className={className}
-            style={color ? { color } : undefined}
+            style={metallic ? metallicGold : color ? { color } : undefined}
           >
             {char}
           </motion.span>
@@ -44,10 +53,12 @@ function Counter({
   to,
   suffix,
   duration = 1.6,
+  className,
 }: {
   to: number;
   suffix: string;
   duration?: number;
+  className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
@@ -65,7 +76,7 @@ function Counter({
     return () => ctrl.stop();
   }, [isInView, to, suffix, duration]);
 
-  return <span ref={ref}>0{suffix}</span>;
+  return <span ref={ref} className={className}>0{suffix}</span>;
 }
 
 const fadeUp = {
@@ -169,7 +180,7 @@ export default function Hero() {
               text="HIGHER"
               startDelay={0.45}
               className="inline-block font-heading text-[18vw] md:text-[12rem] leading-[0.88] tracking-tight"
-              color="#C8A96E"
+              metallic
             />
             <CharReveal
               text="LEVEL"
@@ -238,8 +249,8 @@ export default function Hero() {
                 { to: 100, suffix: "%", label: "Ergebnisfokus" },
               ].map((s) => (
                 <div key={s.label} className="flex flex-col gap-1.5">
-                  <span className="font-heading text-4xl md:text-5xl text-gold tracking-wider">
-                    <Counter to={s.to} suffix={s.suffix} />
+                  <span className="font-heading text-4xl md:text-5xl tracking-wider">
+                    <Counter to={s.to} suffix={s.suffix} className="gold-gradient-text" />
                   </span>
                   <span className="text-[9px] tracking-[0.22em] text-[#444] uppercase">
                     {s.label}

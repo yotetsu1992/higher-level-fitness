@@ -14,7 +14,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex flex-col gap-5">
             <div className="flex flex-col leading-none gap-1">
-              <span className="font-heading text-2xl tracking-[0.18em] text-gold">
+              <span className="font-heading text-2xl tracking-[0.18em] gold-gradient-text">
                 HIGHER LEVEL
               </span>
               <span className="font-heading text-[0.5rem] tracking-[0.55em] text-[#2A2A2A]">

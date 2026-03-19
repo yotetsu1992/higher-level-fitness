@@ -49,7 +49,7 @@ export default function AIChat() {
             >
               SEBASTIAN
               <br />
-              <span className="text-gold">ANTWORTET</span>
+              <span className="gold-gradient-text">ANTWORTET</span>
               <br />
               IMMER.
             </motion.h2>

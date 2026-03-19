@@ -14,14 +14,8 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [logoLoaded, setLogoLoaded] = useState(false);
 
   useEffect(() => {
-    // Check if logo exists
-    fetch("/logo.png", { method: "HEAD" })
-      .then((r) => setLogoLoaded(r.ok))
-      .catch(() => setLogoLoaded(false));
-
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -44,38 +38,25 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="group flex items-center">
-            {logoLoaded ? (
-              <div className="relative h-10 w-auto">
-                <Image
-                  src="/logo.png"
-                  alt="Higher Level Fitness"
-                  height={40}
-                  width={120}
-                  className="h-10 w-auto object-contain"
-                  priority
-                />
-                {/* Shimmer overlay on image */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background:
-                      "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%)",
-                    backgroundSize: "200% 100%",
-                    animation: "logoShimmer 2.5s ease infinite",
-                  }}
-                />
-              </div>
-            ) : (
-              <div className="flex flex-col leading-none gap-0.5">
-                <span className="logo-shimmer font-heading text-[1.35rem] tracking-[0.15em]">
-                  HIGHER LEVEL
-                </span>
-                <span className="font-heading text-[0.5rem] tracking-[0.55em] text-[#444] group-hover:text-[#666] transition-colors duration-300">
-                  FITNESS · BADEN-BADEN
-                </span>
-              </div>
-            )}
+          <a href="#" className="group relative flex items-center">
+            <Image
+              src="/logo.png"
+              alt="Higher Level Fitness"
+              height={44}
+              width={132}
+              className="h-11 w-auto object-contain"
+              priority
+            />
+            {/* Shimmer overlay on hover */}
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%)",
+                backgroundSize: "200% 100%",
+                animation: "logoShimmer 2s ease infinite",
+              }}
+            />
           </a>
 
           {/* Desktop Links */}
