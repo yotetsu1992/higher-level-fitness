@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import SectionLabel from "./SectionLabel";
 import { useRef } from "react";
 
 const packages = [
@@ -58,17 +59,9 @@ export default function Pricing() {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-4 mb-6"
-        >
-          <div className="w-8 h-px bg-gold" />
-          <span className="text-gold text-[10px] tracking-[0.45em] uppercase">
-            Pricing
-          </span>
-        </motion.div>
+        <div className="mb-6">
+          <SectionLabel label="Pricing" />
+        </div>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <motion.h2

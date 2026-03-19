@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import SectionLabel from "./SectionLabel";
 import { useRef } from "react";
 
 const messages = [
@@ -38,17 +39,7 @@ export default function AIChat() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Left: Text */}
           <div className="flex flex-col gap-7">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-4"
-            >
-              <div className="w-8 h-px bg-gold" />
-              <span className="text-gold text-[10px] tracking-[0.45em] uppercase">
-                KI-Agent
-              </span>
-            </motion.div>
+            <SectionLabel label="KI-Agent" />
 
             <motion.h2
               initial={{ opacity: 0, y: 30 }}

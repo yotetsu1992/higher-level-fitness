@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import SectionLabel from "./SectionLabel";
 import { useRef, useState } from "react";
 
 const testimonials = [
@@ -37,18 +38,9 @@ export default function Results() {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Label */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-4 mb-6"
-        >
-          <div className="w-8 h-px bg-gold" />
-          <span className="text-gold text-[10px] tracking-[0.45em] uppercase">
-            Ergebnisse
-          </span>
-        </motion.div>
+        <div className="mb-6">
+          <SectionLabel label="Ergebnisse" />
+        </div>
 
         <motion.h2
           initial={{ opacity: 0, y: 30 }}

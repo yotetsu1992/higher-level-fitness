@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import SectionLabel from "./SectionLabel";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -34,18 +35,9 @@ export default function About() {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Section label */}
-        <motion.div
-          initial="hidden"
-          animate={isInView ? "show" : "hidden"}
-          variants={fadeUp}
-          className="flex items-center gap-4 mb-16"
-        >
-          <div className="w-8 h-px bg-gold" />
-          <span className="text-gold text-[10px] tracking-[0.45em] uppercase">
-            Über Sebastian
-          </span>
-        </motion.div>
+        <div className="mb-16">
+          <SectionLabel label="Über Sebastian" />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-28 items-start">
           {/* Left: Story */}

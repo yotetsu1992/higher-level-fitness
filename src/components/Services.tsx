@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import SectionLabel from "./SectionLabel";
 import { useRef } from "react";
 
 const services = [
@@ -46,17 +47,9 @@ export default function Services() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-4 mb-6"
-            >
-              <div className="w-8 h-px bg-gold" />
-              <span className="text-gold text-[10px] tracking-[0.45em] uppercase">
-                Leistungen
-              </span>
-            </motion.div>
+            <div className="mb-6">
+              <SectionLabel label="Leistungen" />
+            </div>
 
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
