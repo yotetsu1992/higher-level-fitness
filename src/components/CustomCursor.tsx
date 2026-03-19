@@ -9,10 +9,12 @@ export default function CustomCursor() {
   const [hovering, setHovering] = useState(false);
   const [hidden, setHidden] = useState(false);
 
-  const dotX = useSpring(mouseX, { stiffness: 600, damping: 40 });
-  const dotY = useSpring(mouseY, { stiffness: 600, damping: 40 });
-  const ringX = useSpring(mouseX, { stiffness: 130, damping: 22 });
-  const ringY = useSpring(mouseY, { stiffness: 130, damping: 22 });
+  // Dot follows mouse exactly — no spring, zero lag
+  const dotX = mouseX;
+  const dotY = mouseY;
+  // Ring trails slightly but snappy — no acceleration feel
+  const ringX = useSpring(mouseX, { stiffness: 350, damping: 28, restDelta: 0.001 });
+  const ringY = useSpring(mouseY, { stiffness: 350, damping: 28, restDelta: 0.001 });
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
