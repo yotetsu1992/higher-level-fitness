@@ -65,6 +65,7 @@ export default function CustomCursor() {
           translateX: "-50%",
           translateY: "-50%",
           border: "1px solid #C8922A",
+          willChange: "transform",
         }}
       />
 
@@ -83,6 +84,7 @@ export default function CustomCursor() {
           y: dotY,
           translateX: "-50%",
           translateY: "-50%",
+          willChange: "transform",
         }}
       />
     </>
